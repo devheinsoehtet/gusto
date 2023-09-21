@@ -17,7 +17,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = 'dashboard';
+    public const DASHBOARD = 'dashboard';
+    public const CAR = 'cars';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -48,5 +50,10 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+    }
+
+    public function redirectTo()
+    {
+        return auth()->user()->isAdmin() ? '/home' : 'cars';
     }
 }

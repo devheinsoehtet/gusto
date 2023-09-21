@@ -23,10 +23,16 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return $this->redirectTo();
             }
         }
 
         return $next($request);
     }
+
+    private function redirectTo()
+    {
+        return auth()->user()->isAdmin() ? redirect(RouteServiceProvider::DASHBOARD) : redirect(RouteServiceProvider::CAR);
+    }
 }
+
