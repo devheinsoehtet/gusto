@@ -16,13 +16,6 @@ class CarSeeder extends Seeder
      */
     public function run()
     {
-        Car::create([
-            'model' => 'Toyota',
-            'number' => 'YGN-012323',
-            'img_url' => 'car.jpg',
-            'status' => CarStatus::AVAILABLE,
-            'details' => "car's details",
-            'rental_rate' => 100000
-        ]);
+        Car::factory()->count(10)->create();
     }
 }
