@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -22,7 +25,6 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
-        //
     ];
 
     /**
@@ -44,7 +46,33 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+        });
+
+        $this->renderable(function (Throwable $e, $request) {
+            if ($request->is('api/*')) {
+
+                if($e instanceof HttpException) {
+                    return response()->json([
+                        'message' => $e->getMessage(),
+                    ], $e->getStatusCode());
+                }
+
+                if($e instanceof ValidationException) {
+                    return $e;
+                }
+                
+
+                if($e instanceof AuthenticationException) {
+                    return response()->json([
+                        'message' => $e->getMessage(),
+                    ], 401);
+                }
+
+                return response()->json([
+                    'message' => 'internal server error',
+                ], 500);
+
+            }
         });
     }
 }
