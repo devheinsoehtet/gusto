@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
@@ -26,4 +27,6 @@ Auth::routes();
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-Route::resource('/cars', CarController::class);
+Route::resource('/cars', CarController::class)->middleware('auth');
+
+Route::resource('/bookings', BookingController::class)->middleware('auth');
