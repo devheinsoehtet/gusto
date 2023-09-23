@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CarStatus;
 use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
@@ -15,7 +16,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        return view('car.index');
+        $cars = Car::orderBy('id','desc')->paginate(8);
+        return view('car.index', compact('cars'));
     }
 
     /**
@@ -47,6 +49,8 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
+        $car->status = CarStatus::getKey($car->status);
+        return view('car.show', compact('car'));
     }
 
     /**
