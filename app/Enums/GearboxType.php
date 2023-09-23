@@ -11,6 +11,6 @@ use BenSampo\Enum\Enum;
  */
 final class GearboxType extends Enum
 {
-    const AUTOMATIC = 0;
-    const MANUAL = 1;
+    const AUTOMATIC = 'automatic';
+    const MANUAL = 'manual';
 }
