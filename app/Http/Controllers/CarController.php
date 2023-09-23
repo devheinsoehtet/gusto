@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
 use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
@@ -16,10 +17,20 @@ class CarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Car::orderBy('id','desc')->paginate(8);
-        return view('car.index', ['cars' => $cars]);
+        $cars = Car::orderBy('id', 'desc')->paginate(8);
+
+        $actionStatus = session('actionStatus');
+        $actionMessage = session('actionMessage');
+
+        session()->forget(['actionStatus', 'actionMessage']);
+
+        return view('car.index', [
+            'cars' => $cars,
+            'actionStatus' => $actionStatus,
+            'actionMessage' => $actionMessage
+        ]);
     }
 
     /**
@@ -65,7 +76,10 @@ class CarController extends Controller
         ]);
 
         $request->session()->forget('old');
-        return redirect()->route('cars.index')->withInput(['actionStatus' => 'success', 'actionMessage' => 'Successfully Created']);
+        
+        return redirect()->route('cars.index')
+            ->with('actionStatus', 'success')
+            ->with('actionMessage', 'Successfully Added');
     }
 
     /**
