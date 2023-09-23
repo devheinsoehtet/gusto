@@ -19,7 +19,7 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::orderBy('id','desc')->paginate(8);
-        return view('car.index', compact('cars'));
+        return view('car.index', ['cars' => $cars]);
     }
 
     /**
@@ -77,7 +77,7 @@ class CarController extends Controller
     public function show(Car $car)
     {
         $car->status = CarStatus::getKey($car->status);
-        return view('car.show', compact('car'));
+        return view('car.show', ['car' => $car]);
     }
 
     /**
