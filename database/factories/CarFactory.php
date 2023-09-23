@@ -49,7 +49,7 @@ class CarFactory extends Factory
         return [
             'brand' => $brand,
             'model' => $faker->vehicleModel,
-            'registration_no' => $faker->regexify('[A-Z][1-9]-\d{4}'),
+            'registration_no' => $faker->regexify('[1-9][A-Z]-\d{4}'),
             'img_url' => 'storage/'. $filename,
             'status' => Arr::random(CarStatus::getValues()),
             'details' => $faker->paragraph(),
