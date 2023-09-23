@@ -22,11 +22,11 @@ class AttachAppData
     public function handle(Request $request, Closure $next)
     {
         session([
-            'car_status' => CarStatus::getKeys(),
-            'door_count' => DoorCount::getValues(),
-            'fuel_type' => FuelType::getValues(),
-            'gear_box_type' => GearboxType::getValues(),
-            'seat_count' => SeatCount::getValues()
+            'car_status_options' => CarStatus::getKeys(),
+            'door_count_options' => DoorCount::getValues(),
+            'fuel_type_options' => FuelType::getValues(),
+            'gear_box_type_options' => GearboxType::getValues(),
+            'seat_count_options' => SeatCount::getValues()
         ]);
         
         return $next($request);
