@@ -10,11 +10,3 @@ final class CarStatus extends Enum
     const TAKEN = 2;
     const MAINTENANCE = 3;
 }
-
-
-// enum CarStatus:int {
-//     case AVAILABLE = 1;
-//     case TAKEN = 2;
-//     case MAINTENANCE = 3;
-   
-// }
