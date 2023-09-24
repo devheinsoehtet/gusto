@@ -54,8 +54,8 @@
 
                 <div class="form-group m-1">
                     <strong>Properties:</strong>
-                    @foreach ($car->properties as $propertie)
-                        <input type="text" name="name" value="{{ $propertie }}" class="form-control mb-2"
+                    @foreach ($car->properties as $key => $value)
+                        <input type="text" name="name" value="{{ $key .' - '. $value }}" class="form-control mb-2"
                             placeholder="Propertie" readonly>
                     @endforeach
                 </div>
