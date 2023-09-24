@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Enums\CarStatus;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use App\Mail\CarBooked;
 use App\Models\Booking;
 use App\Models\Car;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -47,7 +49,7 @@ class BookingController extends Controller
         $endDate = Carbon::parse($validatedBookingData['end_date']);
         $duration = $endDate->diff($startDate)->days + 1;
 
-        Booking::create([
+        $booking = Booking::create([
             'user_id' => auth()->user()->id,
             'car_id' => $validatedBookingData['car_id'],
             'start_date' => $validatedBookingData['start_date'],
@@ -57,6 +59,8 @@ class BookingController extends Controller
 
         $car->status = CarStatus::TAKEN;
         $car->save();
+
+        // Mail::to(auth()->user())->send(new CarBooked($car, $booking));
 
         $request->session()->forget('old');
         return redirect()->route('bookings.index')->withInput(['actionStatus' => 'success', 'actionMessage' => 'Successfully Created']);
