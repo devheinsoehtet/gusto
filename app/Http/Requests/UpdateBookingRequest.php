@@ -13,7 +13,7 @@ class UpdateBookingRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-        ];
+            'start_date' => 'required|date|date_format:Y-m-d',
+            'end_date' => 'required|date|after_or_equal:start_date'
+        ];   
     }
 }
