@@ -3,6 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="d-flex justify-content-end">
+                <form method="GET" action="{{ route('cars.create') }}" enctype="multipart/form-data">
+                    <button type="submit" class="btn btn-warning btn-block">Add New Car +</button>
+                </form>
+            </div>
             @foreach ($cars as $car)
                 <div class="card col-3 m-3 border border-warning-subtle rounded" style="width: 17rem;">
                     <div class="m-1">

@@ -20,7 +20,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return view('booking.index');
+        $bookings = Booking::orderBy('id','asc')->with('user', 'car')->paginate(10);
+        return view('booking.index', compact('bookings'));
     }
 
     /**
@@ -72,9 +73,13 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
+    public function show($id)
     {
-        //
+        $booking = Booking::with('car', 'user')->find($id);
+        $startDate = Carbon::parse($booking->start_date);
+        $endDate = Carbon::parse($booking->end_date);
+        $booking->diffInDays = $startDate->diffInDays($endDate);
+        return view('booking.show', compact('booking'));
     }
 
     /**
