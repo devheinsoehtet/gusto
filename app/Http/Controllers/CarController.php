@@ -8,10 +8,16 @@ use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Car::class, 'car');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +46,7 @@ class CarController extends Controller
      */
     public function create()
     {
+        // $this->authorize('policy method name', Car::class);
         return view('car.create');
     }
 

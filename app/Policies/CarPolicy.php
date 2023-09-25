@@ -18,7 +18,7 @@ class CarPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class CarPolicy
      */
     public function view(User $user, Car $car)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class CarPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class CarPolicy
      */
     public function update(User $user, Car $car)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class CarPolicy
      */
     public function delete(User $user, Car $car)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
