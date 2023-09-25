@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\BookingController;
 use App\Http\Controllers\Api\V1\CarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,14 +17,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
 
-Route::get('/user', function (Request $request) {
-    return response()->json([
-        'message' => 'hello'
-    ]);
-});
+Route::resource('cars', CarController::class)->only(['index', 'show'])->middleware(['auth:sanctum']);
 
-Route::get('cars', [CarController::class, 'index'])->middleware(['auth:sanctum']);
+Route::resource('bookings', BookingController::class)->except(['create', 'edit'])->middleware(['auth:sanctum']);
+
+
+
