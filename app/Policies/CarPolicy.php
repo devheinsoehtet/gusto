@@ -53,7 +53,7 @@ class CarPolicy
      */
     public function update(User $user, Car $car)
     {
-        return $user->role->hasAccess('create_car');
+        return $user->role->hasAccess('edit_car');
     }
 
     /**

@@ -57,7 +57,11 @@ class BookingPolicy
      */
     public function update(User $user, Booking $booking)
     {
-        return $user->role->hasAccess('update_booking');
+        if($user->isAdmin()) {
+            return $user->role->hasAccess('edit_booking');
+        } else {
+            return $booking->user_id == $user->id && $user->role->hasAccess('edit_booking');
+        }
     }
 
     /**
@@ -69,7 +73,11 @@ class BookingPolicy
      */
     public function delete(User $user, Booking $booking)
     {
-        return $user->role->hasAccess('delete_booking');
+        if($user->isAdmin()) {
+            return $user->role->hasAccess('delete_booking');
+        } else {
+            return $booking->user_id == $user->id && $user->role->hasAccess('delete_booking');
+        }
     }
 
     /**
