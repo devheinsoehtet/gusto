@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (Throwable $e, $request) {
             if ($request->is('api/*')) {
-
+                
                 if($e instanceof HttpException) {
                     return response()->json([
                         'message' => $e->getMessage(),
@@ -58,9 +58,11 @@ class Handler extends ExceptionHandler
                 }
 
                 if($e instanceof ValidationException) {
+                    return response()->json([
+                        'message' => $e->getMessage(),
+                    ], 422);
                     return $e;
                 }
-                
 
                 if($e instanceof AuthenticationException) {
                     return response()->json([
