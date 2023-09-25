@@ -18,7 +18,7 @@ class CarPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->role->hasAccess('list_car');
     }
 
     /**
@@ -30,7 +30,7 @@ class CarPolicy
      */
     public function view(User $user, Car $car)
     {
-        return $user->role->permissions;
+        return $user->role->hasAccess('show_car');
     }
 
     /**
@@ -41,7 +41,7 @@ class CarPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->role->hasAccess('create_car');
     }
 
     /**
@@ -53,7 +53,7 @@ class CarPolicy
      */
     public function update(User $user, Car $car)
     {
-        return $user->isAdmin();
+        return $user->role->hasAccess('create_car');
     }
 
     /**
@@ -65,7 +65,7 @@ class CarPolicy
      */
     public function delete(User $user, Car $car)
     {
-        return $user->isAdmin();
+        return $user->role->hasAccess('delete_car');
     }
 
     /**

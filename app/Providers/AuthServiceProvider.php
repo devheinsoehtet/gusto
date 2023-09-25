@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-
+use App\Models\Booking;
 use App\Models\Car;
 use App\Models\User;
+use App\Policies\BookingPolicy;
 use App\Policies\CarPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -18,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Car::class => CarPolicy::class,
+        Booking::class => BookingPolicy::class
     ];
 
     /**
@@ -29,8 +31,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Gate::define('access-role-permission', function(User $user) {
-        //     return $user->isAdmin();
-        // });
+        Gate::define('admin', function(User $user) {
+            return $user->isAdmin();
+        });
     }
 }

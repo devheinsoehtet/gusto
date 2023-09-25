@@ -13,11 +13,11 @@ class Role extends Model
 
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class, 'role_permission');
+        return $this->belongsToMany(Permission::class, 'role_permission', 'role_id', 'permission_id');
     }
 
-    public function hasPermission($name)
+    public function hasAccess($name)
     {
-        return 
+        return $this->permissions()->firstWhere('name', $name) != null ? true : false;
     }
 }

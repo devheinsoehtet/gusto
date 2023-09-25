@@ -4,7 +4,7 @@
     <div class="container mt-2">
         <div class="row gx-5 d-flex justify-content-center">
             <div class=" card border-2 border border-warning-subtle rounded shadow-lg col-xs-6 col-sm-6 col-md-6">
-                <div class="my-4 d-flex justify-content-center zoom">
+                <div class="my-4 d-flex justify-content-center">
                         @if ($booking->car->img_url)
                             <img src="{{ asset($booking->car->img_url) }}" style="width: 15rem;" class="card-img">
                         @else
@@ -32,7 +32,7 @@
 
                 <div class="form-group m-1">
                         <strong>Days:</strong>
-                        <input type="text" name="name" value="{{ $booking->diffInDays }}" class="form-control"
+                        <input type="text" name="name" value="{{ $booking->duration }}" class="form-control"
                             placeholder="Days" readonly>
                 </div>
 

@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Booking::class, 'booking');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +26,18 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::orderBy('id','asc')->with('user', 'car')->paginate(10);
-        return view('booking.index', compact('bookings'));
+        $bookings = Booking::relatedBooking()->orderBy('id', 'asc')->with('user', 'car')->paginate(10);
+
+        $actionStatus = session('actionStatus');
+        $actionMessage = session('actionMessage');
+
+        session()->forget(['actionStatus', 'actionMessage']);
+
+        return view('booking.index', [
+            'bookings' => $bookings,
+            'actionStatus' => $actionStatus,
+            'actionMessage' => $actionMessage
+        ]);
     }
 
     /**
@@ -64,7 +80,10 @@ class BookingController extends Controller
         // Mail::to(auth()->user())->send(new CarBooked($car, $booking));
 
         $request->session()->forget('old');
-        return redirect()->route('bookings.index')->withInput(['actionStatus' => 'success', 'actionMessage' => 'Successfully Created']);
+
+        return redirect()->route('bookings.index')
+            ->with('actionStatus', 'success')
+            ->with('actionMessage', 'Successfully Book');
     }
 
     /**
@@ -73,13 +92,9 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Booking $booking)
     {
-        $booking = Booking::with('car', 'user')->find($id);
-        $startDate = Carbon::parse($booking->start_date);
-        $endDate = Carbon::parse($booking->end_date);
-        $booking->diffInDays = $startDate->diffInDays($endDate);
-        return view('booking.show', compact('booking'));
+        return view('booking.show', ['booking' => $booking]);
     }
 
     /**

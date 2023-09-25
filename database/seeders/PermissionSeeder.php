@@ -16,10 +16,17 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            ['name' => 'create_car', 'name_alias' => 'Create Car'],
-            ['name' => 'show_car', 'name_alias' => 'View Car Details'],
             ['name' => 'list_car', 'name_alias' => 'View Car List'],
-            ['name' => 'delete_car', 'name_alias' => 'Delete Car']
+            ['name' => 'show_car', 'name_alias' => 'View Car Details'],
+            ['name' => 'create_car', 'name_alias' => 'Create Car'],
+            ['name' => 'edit_car', 'name_alias' => 'Edit Car'],
+            ['name' => 'delete_car', 'name_alias' => 'Delete Car'],
+
+            ['name' => 'list_booking', 'name_alias' => 'View Booking List'],
+            ['name' => 'show_booking', 'name_alias' => 'View Booking Details'],
+            ['name' => 'create_booking', 'name_alias' => 'Create Booking'],
+            ['name' => 'edit_booking', 'name_alias' => 'Edit Booking'],
+            ['name' => 'delete_booking', 'name_alias' => 'Delete Booking']
         ];
 
         foreach ($permissions as $permission) {

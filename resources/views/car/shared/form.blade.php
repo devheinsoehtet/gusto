@@ -106,10 +106,6 @@
     @enderror
 </div>
 
-@if (optional($car ?? null)->img_url)
-    <img src="{{ asset($car->img_url) }}" width="500" height="600">
-@endif
-
 <div class="form-group mb-2">
     <label>Image</label>
     <input name="image" type="file" class="form-control @error('image') is-invalid @enderror">

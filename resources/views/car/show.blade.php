@@ -12,7 +12,10 @@
                     @endif
                 </div>
                 <div class="mt-3">
-                    {{-- <button class="btn btn-warning">Edit</button> --}}
+
+                    @can('admin')
+                        <button class="btn btn-warning">Edit</button>
+                    @endcan
                     @if ($car->status == 'AVAILABLE')
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#bookingModal">
                         Book Now

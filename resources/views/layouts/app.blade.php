@@ -56,6 +56,7 @@
                             ]) aria-current="page"
                                 href="{{ route('bookings.index') }}">Bookings</a>
                         </li>
+                        @can('admin')
                         <li class="nav-item">
                             <a @class([
                                 'nav-link',
@@ -63,9 +64,7 @@
                             ]) aria-current="page"
                                 href="{{ route('roles.index') }}">Roles</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('bookings.index') }}">Bookings</a>
-                        </li>
+                        @endCan
                     </ul>
 
                     <!-- Right Side Of Navbar -->

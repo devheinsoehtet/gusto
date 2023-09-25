@@ -18,7 +18,7 @@ class BookingPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->role->hasAccess('list_booking');
     }
 
     /**
@@ -30,7 +30,11 @@ class BookingPolicy
      */
     public function view(User $user, Booking $booking)
     {
-        //
+        if($user->isAdmin()) {
+            return $user->role->hasAccess('show_booking');
+        } else {
+            return $booking->user_id == $user->id && $user->role->hasAccess('show_booking');
+        }
     }
 
     /**
@@ -41,7 +45,7 @@ class BookingPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->role->hasAccess('create_booking');
     }
 
     /**
@@ -53,7 +57,7 @@ class BookingPolicy
      */
     public function update(User $user, Booking $booking)
     {
-        //
+        return $user->role->hasAccess('update_booking');
     }
 
     /**
@@ -65,7 +69,7 @@ class BookingPolicy
      */
     public function delete(User $user, Booking $booking)
     {
-        //
+        return $user->role->hasAccess('delete_booking');
     }
 
     /**
