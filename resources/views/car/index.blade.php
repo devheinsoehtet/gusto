@@ -5,14 +5,22 @@
         <div class="row">
             <div class="d-flex justify-content-end">
                 <form method="GET" action="{{ route('cars.create') }}" enctype="multipart/form-data">
-                    <button type="submit" class="btn btn-warning btn-block">Add New Car +</button>
+                
+                    @can('create', App\Models\Car::class)
+                    <button type="submit" class="btn btn-warning btn-block">
+                        <span class="material-icons">
+                            add
+                        </span>
+                        Add New Car
+                    </button>
+                    @endcan
                 </form>
             </div>
             @foreach ($cars as $car)
                 <div class="card col-3 m-3 border border-warning-subtle rounded" style="width: 17rem;">
                     <div class="m-1">
                         <div class="card-header bg-light-subtle border-warning-subtle">
-                            <h6 class="card-title fw-bold">{{ $car->brand .' - '. $car->model }}</h6>
+                            <h6 class="card-title fw-bold">{{ $car->brand . ' - ' . $car->model }}</h6>
                         </div>
                         <div class="card-body">
                             <img src="{{ $car->img_url }}" class="card-img card-img-top mb-2" style="max-height: 10rem">
