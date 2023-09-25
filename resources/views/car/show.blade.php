@@ -53,10 +53,10 @@
                 </div>
 
                 <div class="form-group m-1">
-                    <strong>Properties:</strong>
-                    @foreach ($car->properties as $propertie)
-                        <input type="text" name="name" value="{{ $propertie }}" class="form-control mb-2"
-                            placeholder="Propertie" readonly>
+                    @foreach ($car->properties as $key => $property)
+                        <strong>{{ Str::ucfirst(str_replace('_', ' ', $key)) }}</strong>
+                        <input type="text" name="name" value="{{ $property }}" class="form-control mb-2"
+                            placeholder="Property" readonly>
                     @endforeach
                 </div>
             </div>
@@ -69,7 +69,7 @@
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Booking</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

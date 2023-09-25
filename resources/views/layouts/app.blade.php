@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -36,11 +36,32 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
+                            <a @class([
+                                'nav-link',
+                                'active' => url()->current() == route('dashboard.index'),
+                            ]) aria-current="page"
                                 href="{{ route('dashboard.index') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('cars.index') }}">Cars</a>
+                            <a @class([
+                                'nav-link',
+                                'active' => url()->current() == route('cars.index'),
+                            ]) aria-current="page"
+                                href="{{ route('cars.index') }}">Cars</a>
+                        </li>
+                        <li class="nav-item">
+                            <a @class([
+                                'nav-link',
+                                'active' => url()->current() == route('bookings.index'),
+                            ]) aria-current="page"
+                                href="{{ route('bookings.index') }}">Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a @class([
+                                'nav-link',
+                                'active' => url()->current() == route('roles.index'),
+                            ]) aria-current="page"
+                                href="{{ route('roles.index') }}">Roles</a>
                         </li>
                     </ul>
 

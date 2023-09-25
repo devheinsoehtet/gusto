@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Permission;
+use App\Models\Role;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class PermissionController extends Controller
 {
@@ -13,9 +16,21 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Role $role)
     {
-        //
+
+        $actionStatus = session('actionStatus');
+        $actionMessage = session('actionMessage');
+
+        session()->forget(['actionStatus', 'actionMessage']);
+
+        return view('role.permission.index', [
+            'roles' => Role::all(),
+            'permissions' => Permission::all(),
+            'rolePermissionIds' => $role->permissions->pluck('id')->all(),
+            'actionStatus' => $actionStatus,
+            'actionMessage' => $actionMessage
+        ]);
     }
 
     /**
@@ -82,5 +97,18 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         //
+    }
+
+    public function assign(Role $role, Request $request)
+    {
+        $permissionIds = $request->input('permission_ids', []);
+
+        $role->permissions()->sync($permissionIds);
+
+        $roleTitle = ucfirst($role->title);
+
+        return redirect()->route('roles.permissions.index', $role->id)
+        ->with('actionStatus', 'success')
+        ->with('actionMessage', "Successfully change permissions of $roleTitle role");
     }
 }

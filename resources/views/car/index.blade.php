@@ -10,7 +10,7 @@
                             <h6 class="card-title fw-bold">{{ $car->brand .' - '. $car->model }}</h6>
                         </div>
                         <div class="card-body">
-                            <img src="{{ $car->img_url }}" class="card-img card-img-top mb-2">
+                            <img src="{{ $car->img_url }}" class="card-img card-img-top mb-2" style="max-height: 10rem">
                             <span class="fw-bold">{{ $car->rental_rate }} MMK</span>
 
                         </div>

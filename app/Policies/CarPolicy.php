@@ -30,7 +30,7 @@ class CarPolicy
      */
     public function view(User $user, Car $car)
     {
-        return true;
+        return $user->role->permissions;
     }
 
     /**

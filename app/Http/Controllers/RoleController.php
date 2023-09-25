@@ -15,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->route('roles.permissions.index', Role::first()->id);
     }
 
     /**
