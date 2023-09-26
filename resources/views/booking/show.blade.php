@@ -54,8 +54,14 @@
                             placeholder="Amount" readonly>
                 </div>
 
-               
+                <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button class="btn btn-danger mb-2" type="submit">Delete</button>
+                </form>
             </div>
+
+
         </div>
     </div>
 @endsection

@@ -128,6 +128,12 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+        $booking->delete();
+        $booking->car->status = CarStatus::AVAILABLE;
+        $booking->car->save();
+
+        return redirect()->route('bookings.index')
+            ->with('actionStatus', 'success')
+            ->with('actionMessage', 'Successfully Deleted');
     }
 }
