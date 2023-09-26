@@ -83,7 +83,7 @@ class CarController extends Controller
         ]);
 
         $request->session()->forget('old');
-        
+
         return redirect()->route('cars.index')
             ->with('actionStatus', 'success')
             ->with('actionMessage', 'Successfully Added');
@@ -121,7 +121,53 @@ class CarController extends Controller
      */
     public function update(UpdateCarRequest $request, Car $car)
     {
-        //
+        $validatedCarData = $request->validated();
+
+        $carUpdateData = [
+            'brand' => $validatedCarData['brand'],
+            'model' => $validatedCarData['model'],
+            'registration_no' => $validatedCarData['registration_no'],
+            'status' => CarStatus::getValue($validatedCarData['status']),
+            'details' => $validatedCarData['details'],
+            'rental_rate' => $validatedCarData['rental_rate'],
+            'properties' => [
+                'door_count' => $validatedCarData['door_count'],
+                'fuel_type' => $validatedCarData['fuel_type'],
+                'seat_count' => $validatedCarData['seat_count'],
+                'gear_box_type' => $validatedCarData['gear_box_type'],
+            ]
+        ];
+
+        if(array_key_exists('image', $validatedCarData)) {
+            $path = Storage::disk('public')->putFileAs(
+                'cars',
+                $validatedCarData['image'],
+                Carbon::now()->timestamp . "." . $validatedCarData['image']->getClientOriginalExtension()
+            );
+            $carUpdateData['img_url'] = 'storage/' . $path;
+        }
+
+        $car->update([
+            'brand' => $validatedCarData['brand'],
+            'model' => $validatedCarData['model'],
+            'registration_no' => $validatedCarData['registration_no'],
+            'img_url' => 'storage/' . $path,
+            'status' => CarStatus::getValue($validatedCarData['status']),
+            'details' => $validatedCarData['details'],
+            'rental_rate' => $validatedCarData['rental_rate'],
+            'properties' => [
+                'door_count' => $validatedCarData['door_count'],
+                'fuel_type' => $validatedCarData['fuel_type'],
+                'seat_count' => $validatedCarData['seat_count'],
+                'gear_box_type' => $validatedCarData['gear_box_type'],
+            ]
+        ]);
+
+        $request->session()->forget('old');
+
+        return redirect()->route('cars.index')
+            ->with('actionStatus', 'success')
+            ->with('actionMessage', 'Successfully Updated');
     }
 
     /**

@@ -30,7 +30,7 @@ class UpdateCarRequest extends FormRequest
                 'required',
                 'string',
                 'regex:/[1-9][A-Z]-\d{4}/',
-                'unique:App\Models\Car,registration_no'
+                // 'unique:App\Models\Car,registration_no'
             ],
             'status' => 'required|string',
             'rental_rate' => 'required|numeric|min_digits:6|max_digits:8',
