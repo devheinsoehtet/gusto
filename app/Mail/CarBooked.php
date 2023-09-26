@@ -15,17 +15,13 @@ class CarBooked extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $car;
-    private $booking;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Car $car, Booking $booking)
+    public function __construct(protected Car $car, protected Booking $booking)
     {
-        $this->car = $car;
-        $this->booking = $booking;
     }
 
     /**
@@ -36,7 +32,7 @@ class CarBooked extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Car Rented',
+            subject: 'Successfully Book a Car',
         );
     }
 
@@ -47,7 +43,13 @@ class CarBooked extends Mailable
      */
     public function content()
     {
-        return new Content('emails.car-booked');
+        return new Content(
+        view: 'emails.car-booked', 
+        with: [
+            'booking' => $this->booking,
+            'car' => $this->car
+        ]
+    );
     }
 
     /**
