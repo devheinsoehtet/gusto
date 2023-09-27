@@ -10,15 +10,20 @@
 
 2. Set up with WSL
 
-    # Window, Set up with wsl
-
     - wsl မသွင်းရသေးရင် wsl အရင် ဆုံး Install လုပ်ရန် လိုအပ်ပါမယ်
     - wsl သွင်းပီးရင် အကို တို့ Ubuntu distro တခု ကို download ဆွဲဖို့လိုအပ်ပါမယ်
+
+    ```
         > wsl -l -o (wsl distro image list တခု ကျလာမှာ ဖြစ်ပါတယ်)
         > wsl --install -d Ubuntu-22.04 (Ubuntu 22.04 version distro ကို Download ဆွဲရန်၊ installation အဆင်ပြေတဲ့ အခါ မှာ username, password ရှိက်ပေးဖို့လိုပါတယ်, မှတ်ထားဖို့ လိုပါမယ်)
+    ```
+
     - distro download ဆွဲပီးတဲ့ အခါမှာ
+
+    ```
         > wsl -l
         > command ကို ရိုက်ကြည့်တဲ့ အခါ မှာ Ubuntu-22.04 (Default) ဆိုတာ ရှိနေမှာ ကို တွေ့ရပါမယ်၊ ဒါဆိုရင် Window မှာ WSL setup လုပ်တာ ပီးသွားပါပီ
+    ```
 
 3. git
 
@@ -26,13 +31,17 @@
 
 4. PHP
     - ကိုယ့်ရဲ့ OS မှာ အကို တို့ PHP ကို သွင်းစရာမလို့ ပါဘူး အကိုတို့ wsl ထဲမှာ ပဲ သွင်းပါမယ်၊
+    ```
         > wsl -d Ubuntu-22.04
-        > လိုအပ်တဲ့ PHP library တွေ စသွင်းဖို့ လိုအပ်ပါမယ်
-        > sudo apt install php8.1 php8.1 php8.1-curl php8.1-common php8.1-dom php8.1-mysql php8.1-mbstring php8.1-tokenizer php8.1-xml php8.1-fpm
+    ```
+    - လိုအပ်တဲ့ PHP library တွေ စသွင်းဖို့ လိုအပ်ပါမယ်
+    ```
+       > sudo apt install php8.1 php8.1 php8.1-curl php8.1-common php8.1-dom php8.1-mysql php8.1-mbstring php8.1-tokenizer php8.1-xml php8.1-fpm
+    ```
 5. Composer, The Dependency Manager for PHP (https://getcomposer.org/download/)
-
     - composer ကိုလည်း အကိုတို့ wsl ထဲ ပဲ သွင်းဖို့ လိုအပ်ပါမယ်
 
+```
         > php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         > php -r "if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
         > php composer-setup.php
@@ -40,6 +49,7 @@
 
         > sudo mv composer.phar /usr/local/bin/composer
         > composer --version
+```
 
 6. MySQL
     - mysql database ကိုလည်း wsl ထဲမှာ ပဲ Install လုပ်ရပါမယ်
@@ -57,22 +67,32 @@
 
     -   PHP ကို ကိုယ့် ရဲ့ စက်မှာ ပဲ သွင်းပါမယ်၊
     -   လိုအပ်တဲ့ PHP library တွေ စသွင်းဖို့ လိုအပ်ပါမယ်
+
+    ```
         > sudo apt install php8.1 php8.1 php8.1-curl php8.1-common php8.1-dom php8.1-mysql php8.1-mbstring php8.1-tokenizer php8.1-xml php8.1-fpm
+    ```
 
 4.  Composer, The Dependency Manager for PHP (https://getcomposer.org/download/).
+
+```
 
     > php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     > php -r "if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" > php composer-setup.php > php -r "unlink('composer-setup.php');"
     > sudo mv composer.phar /usr/local/bin/composer
     > composer --version
 
+```
+
 5.  MySQL
+    -   ref link https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04
+
+```
 
     > sudo apt update
     > sudo apt install mysql-server
     > sudo apt install mysql-client
 
-    -   ref link https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04
+```
 
 # Mac Setup
 
