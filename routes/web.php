@@ -27,9 +27,9 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('post', PostController::class);
-});
+// Route::middleware(['auth'])->group(function () {
+//     Route::resource('post', PostController::class);
+// });
 
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('auth');

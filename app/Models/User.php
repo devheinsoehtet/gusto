@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->role_id == Role::where('title', 'admin')->first()->id ? true : false;
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
